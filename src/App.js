@@ -3,8 +3,9 @@ import { useEffect, useState, useContext } from "react";
 import './App.css';
 import MovieCard from './MovieCard'
 import { ThemeContext } from "./Theme";
+import { API_KEY } from "./config";
 
-const API_URL = "http://www.omdbapi.com?apikey="
+const API_URL = `http://www.omdbapi.com?apikey=${API_KEY}`
 
 const App = () => {
     const [movies, setMovies] = useState([]);
@@ -28,7 +29,7 @@ const App = () => {
         <div className={`app ${theme}`}>
 
             <h1>Movie DB</h1>
-
+            
             <div className="theme">
                 <button 
                     id="theme"
