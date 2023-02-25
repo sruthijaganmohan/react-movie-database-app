@@ -16,6 +16,7 @@
     --search-button-bg-color: #780101;
     --search-button-fg-color: #e1d1d1;
     --movie-card-text-color: #1f2123;
+    --movie-card-color: #e1d1d1;
 }
 
 
@@ -24,6 +25,7 @@
     --search-button-bg-color: #1f2123;
     --search-button-fg-color: #e1d1d1;
     --movie-card-text-color: #e1d1d1;
+    --movie-card-color: #780101;
 }
   
 
@@ -155,7 +157,7 @@ button:hover {
   
 .movie div:nth-of-type(3) {
     z-index: 2;
-    background-color: #780101;
+    background-color: var(--movie-card-color);
     padding: 16px 24px 24px 24px;
     position: absolute;
     bottom: 0;
