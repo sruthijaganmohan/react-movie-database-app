@@ -10,19 +10,39 @@ const API_URL = `http://www.omdbapi.com?apikey=${API_KEY}`
 const App = () => {
     const [movies, setMovies] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [sortType, setSortType] = useState('');
+    const {theme, toggleTheme} = useContext(ThemeContext);
 
     const searchMovies = async (title) => {
         const response = await fetch(`${API_URL}&s=${title}`)
         const data = await response.json();
 
         setMovies(data.Search)
+        //console.log(data.Search);
+        //console.log(sortType);
+        //console.log(movie)
     }
 
-    const {theme, toggleTheme} = useContext(ThemeContext);
+    const sortArray = (type, movies) => {
+        const types = {
+            Year: 'Year',
+            Title: 'Title',
+            Type: 'Type',
+        };
+        const sortProperty = types[type];
+        movies = movies.sort((a, b) => {
+            if (a[sortProperty] < b[sortProperty]) {
+              return -1;
+            }
+          });
+        setMovies(movies);
+    };
+    //sortArray(sortType);
 
 
     useEffect(() => {
         searchMovies('');
+        
     }, []);
 
     return (
@@ -42,6 +62,13 @@ const App = () => {
                     placeholder="search for a movie"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter")
+                        {
+                            searchMovies(e.target.value);
+                        }
+                    }}
+                        
                 ></input>
                 <button
                     id="search-button"
@@ -49,6 +76,22 @@ const App = () => {
                     onClick={() => searchMovies(searchTerm)}
                 >search</button>
             </div>
+
+            <select 
+                name="sort-movies" 
+                id="sort-movies"
+                onChange={(e) => {
+                    setSortType(e.target.value)
+                    sortArray(sortType, movies);
+                    }}>
+                <option selected="true" disabled="true" >Filter</option>
+                <option value="Year">Year</option>
+                <option value="Title">Title</option>
+                <option value="Type">Type</option>
+                
+            </select>
+
+            
 
             {
                 movies?.length > 0
