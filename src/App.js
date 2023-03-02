@@ -55,7 +55,22 @@ const App = () => {
                     id="theme"
                     onClick={() => toggleTheme()}
                 >{theme}</button>
+
+                <select 
+                    name="sort-movies" 
+                    id="sort-movies"
+                    onChange={(e) => {
+                        setSortType(e.target.value)
+                        sortArray(e.target.value, movies);
+                        }}>
+                    <option selected="true" disabled="true" >sort</option>
+                    <option value="Year">Year</option>
+                    <option value="Title">Title</option>
+                    <option value="Type">Type</option>
+                </select>
             </div>
+
+            
 
             <div className="search">
                 <input
@@ -77,21 +92,7 @@ const App = () => {
                 >search</button>
             </div>
 
-            <select 
-                name="sort-movies" 
-                id="sort-movies"
-                onChange={(e) => {
-                    setSortType(e.target.value)
-                    sortArray(sortType, movies);
-                    }}>
-                <option selected="true" disabled="true" >Filter</option>
-                <option value="Year">Year</option>
-                <option value="Title">Title</option>
-                <option value="Type">Type</option>
-                
-            </select>
-
-            
+                       
 
             {
                 movies?.length > 0
